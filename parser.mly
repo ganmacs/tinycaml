@@ -41,6 +41,7 @@ main:
 exp:
   | simple_exp { $1 }
   | ID LPAREN args RPAREN { App($1, $3) }
+  | IF bool_exp THEN exp ELSE exp { If($2, $4, $6) }
   | exp PLUS exp     { Prime (AddOp, $1 ,$3)  }
   | exp PLUS_DOT exp { Prime (FAddOp, $1 ,$3) }
   | exp MINUS exp      { Prime (SubOp, $1 ,$3)  }
@@ -64,3 +65,6 @@ args:
 //  | { [] } // conflict
   | simple_exp { [$1] }
   | simple_exp args { $1 :: $2 }
+
+bool_exp:
+  | exp EQ exp { Eq($1, $3) }

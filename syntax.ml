@@ -12,3 +12,4 @@ type exp =
   | Let of var * exp * exp
   | LetRec of var * var list * exp * exp
   | Eq of exp * exp
+  | Error                       (* for test *)
