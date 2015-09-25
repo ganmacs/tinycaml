@@ -21,4 +21,8 @@ _build/
 setup.data
 setup.log
 
-
+# for this repo
+lexer.ml
+parser.mli
+parser.ml
+tinycaml
