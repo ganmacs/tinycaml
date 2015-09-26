@@ -4,3 +4,6 @@ let fopen filename =
 let parse filename =
   Parser.main
     Lexer.token (fopen filename)
+
+let infer filename =
+  Typing.infer [] (parse filename)

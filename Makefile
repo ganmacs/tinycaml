@@ -1,4 +1,4 @@
-SRC= syntax.ml parser.mli parser.ml lexer.ml main.ml test.ml
+SRC= type.mli type.ml syntax.ml parser.mli parser.ml lexer.ml typing.ml main.ml test.ml
 TARGET= tinycaml
 
 all: $(TARGET)
