@@ -1,6 +1,7 @@
 let target_file = [
   "int.ml"; "float.ml"; "if.ml"; "app.ml";
-  "add.ml"; "assoc.ml"; "bool.ml"; "let.ml"
+  "add.ml"; "assoc.ml"; "bool.ml"; "let.ml";
+  "letrec.ml"; "letlet.ml"
 ]
 
 let run () = List.map

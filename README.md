@@ -22,12 +22,13 @@ exp:
   | exp SUB_DOT exp
   | exp MUL exp
   | exp MUL_DOT exp
+  | IF simple_exp THEN exp ELSE exp
   | LET ID EQ exp IN exp
   | LET REC ID LPAREN formal_args RPAREN EQ exp IN exp
 
 formal_args:
   | ID
-  | ID foraml_args
+  | ID COMMA foraml_args
 
 simple_exp:
   | LPAREN exp RPAREN
@@ -36,7 +37,6 @@ simple_exp:
   | FLOAT
 
 args:
-  |
   | simple_exp
-  | simple_exp args
+  | simple_exp COMMA args
 ```

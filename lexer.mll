@@ -19,6 +19,7 @@ rule token = parse
            | '='    { EQ }
            | '('    { LPAREN }
            | ')'    { RPAREN }
+           | ','    { COMMA }
            | "if"   { IF }
            | "else" { ELSE }
            | "then" { THEN }

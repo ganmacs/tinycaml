@@ -16,6 +16,7 @@ open Syntax
 %token EQ
 %token LPAREN
 %token RPAREN
+%token COMMA
 %token TRUE
 %token FALSE
 
@@ -62,7 +63,7 @@ exp:
 
 formal_args:
   | ID { [$1] }
-  | ID formal_args { $1 :: $2 }
+  | ID COMMA formal_args { $1 :: $3 }
 
 simple_exp:
   | LPAREN exp RPAREN { $2 }
@@ -73,6 +74,5 @@ simple_exp:
   | FALSE { Bool(false) }
 
 args:
-//  | { [] } // conflict
   | simple_exp { [$1] }
-  | simple_exp args { $1 :: $2 }
+  | simple_exp COMMA args { $1 :: $3 }
