@@ -5,6 +5,7 @@ open Syntax
 %token <int> INT
 %token <float> FLOAT
 %token <string> ID
+%token <bool> Bool
 
 %token PLUS
 %token PLUS_DOT
@@ -15,6 +16,8 @@ open Syntax
 %token EQ
 %token LPAREN
 %token RPAREN
+%token TRUE
+%token FALSE
 
 // keyword
 %token IF
@@ -41,7 +44,7 @@ main:
 exp:
   | simple_exp { $1 }
   | ID LPAREN args RPAREN { App($1, $3) }
-  | IF bool_exp THEN exp ELSE exp { If($2, $4, $6) }
+  | IF simple_exp THEN exp ELSE exp { If($2, $4, $6) }
   | exp PLUS exp     { Prime (AddOp, $1 ,$3)  }
   | exp PLUS_DOT exp { Prime (FAddOp, $1 ,$3) }
   | exp MINUS exp      { Prime (SubOp, $1 ,$3)  }
@@ -60,11 +63,10 @@ simple_exp:
   | ID    { Var($1) }
   | INT   { Int($1) }
   | FLOAT { Float($1) }
+  | TRUE  { Bool(true) }
+  | FALSE { Bool(false) }
 
 args:
 //  | { [] } // conflict
   | simple_exp { [$1] }
   | simple_exp args { $1 :: $2 }
-
-bool_exp:
-  | exp EQ exp { Eq($1, $3) }

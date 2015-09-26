@@ -5,6 +5,7 @@ type primop = AddOp | FAddOp | SubOp | FSubOp | MulOp | FMulOp
 type exp =
   | Int of int
   | Float of float
+  | Bool of bool
   | Var of var
   | Prime of primop * exp * exp
   | If of exp * exp * exp
