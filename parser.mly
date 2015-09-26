@@ -29,6 +29,7 @@ open Syntax
 
 %token EOF
 
+%right prec_let
 %left PLUS PLUS_DOT MINUS MINUS_DOT
 %left TIME TIME_DOT
 
@@ -45,14 +46,19 @@ exp:
   | simple_exp { $1 }
   | ID LPAREN args RPAREN { App($1, $3) }
   | IF simple_exp THEN exp ELSE exp { If($2, $4, $6) }
+  | exp EQ exp       { Eq($1, $3) }
   | exp PLUS exp     { Prime (AddOp, $1 ,$3)  }
   | exp PLUS_DOT exp { Prime (FAddOp, $1 ,$3) }
   | exp MINUS exp      { Prime (SubOp, $1 ,$3)  }
   | exp MINUS_DOT exp  { Prime (FSubOp, $1 ,$3) }
   | exp TIME exp      { Prime (MulOp, $1 ,$3)  }
   | exp TIME_DOT exp  { Prime (FMulOp, $1 ,$3) }
-  | LET ID EQ exp IN exp { Let($2, $4, $6) }
-  | LET REC ID LPAREN formal_args RPAREN EQ exp IN exp { LetRec($3, $5, $8, $10) }
+  | LET ID EQ exp IN exp
+     %prec prec_let
+     { Let($2, $4, $6) }
+  | LET REC ID LPAREN formal_args RPAREN EQ exp IN exp
+    %prec prec_let
+    { LetRec($3, $5, $8, $10) }
 
 formal_args:
   | ID { [$1] }

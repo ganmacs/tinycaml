@@ -24,6 +24,7 @@ rule token = parse
            | "then" { THEN }
            | "let"  { LET }
            | "rec"  { REC }
+           | "in"   { IN }
            | "true" { TRUE }
            | "false" { FALSE }
            | lalpha (ualpha|lalpha|digit)* { ID (Lexing.lexeme lexbuf) }
