@@ -1,1 +1,1 @@
-let rec f (x, y) = x + 1 in f (1, 2)
+let rec f (x) = x + 1 in f (2)

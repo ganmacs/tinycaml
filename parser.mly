@@ -1,5 +1,6 @@
 %{
 open Syntax
+let add_typ x = (x, Type.gen_typ ())
 %}
 
 %token <int> INT
@@ -45,7 +46,7 @@ main:
 
 exp:
   | simple_exp { $1 }
-  | ID LPAREN args RPAREN { App($1, $3) }
+  | ID LPAREN args RPAREN { App(Var($1), $3) }
   | IF simple_exp THEN exp ELSE exp { If($2, $4, $6) }
   | exp EQ exp       { Eq($1, $3) }
   | exp PLUS exp     { Prime (AddOp, $1 ,$3)  }
@@ -56,14 +57,14 @@ exp:
   | exp TIME_DOT exp  { Prime (FMulOp, $1 ,$3) }
   | LET ID EQ exp IN exp
      %prec prec_let
-     { Let($2, $4, $6) }
+     { Let(add_typ $2, $4, $6) }
   | LET REC ID LPAREN formal_args RPAREN EQ exp IN exp
     %prec prec_let
-    { LetRec($3, $5, $8, $10) }
+    { LetRec(add_typ $3, $5, $8, $10) }
 
 formal_args:
-  | ID { [$1] }
-  | ID COMMA formal_args { $1 :: $3 }
+  | ID { [add_typ $1] }
+  | ID COMMA formal_args { (add_typ $1) :: $3 }
 
 simple_exp:
   | LPAREN exp RPAREN { $2 }

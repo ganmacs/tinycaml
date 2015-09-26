@@ -9,8 +9,8 @@ type exp =
   | Var of var
   | Prime of primop * exp * exp
   | If of exp * exp * exp
-  | App of var * exp list
-  | Let of var * exp * exp
-  | LetRec of var * var list * exp * exp
+  | App of exp * exp list
+  | Let of (var * Type.t) * exp * exp
+  | LetRec of (var * Type.t) * (var * Type.t) list * exp * exp
   | Eq of exp * exp
   | Error                       (* for test *)
